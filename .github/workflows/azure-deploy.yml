@@ -6,6 +6,10 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  AZURE_WEBAPP_NAME: ascendore-email-ux
+  NODE_VERSION: '20.x'
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -17,7 +21,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
 
       - name: Install dependencies
@@ -28,20 +32,20 @@ jobs:
         env:
           NEXT_PUBLIC_API_URL: https://ascendore-email-api.azurewebsites.net
 
-      - name: Create deployment package
+      - name: Prepare deployment package
         run: |
-          # Create standalone deployment
-          cp -r .next/standalone/* .
+          # Copy static files to standalone
           cp -r .next/static .next/standalone/.next/static || true
-          cp -r public .next/standalone/public || true
+          mkdir -p .next/standalone/public
+          cp -r public/* .next/standalone/public/ 2>/dev/null || true
 
-      - name: Login to Azure
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          # Create package for deployment
+          cd .next/standalone
+          zip -r ../../deploy-package.zip . -x "*.git*"
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'ascendore-email-ux'
-          package: '.'
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: deploy-package.zip
