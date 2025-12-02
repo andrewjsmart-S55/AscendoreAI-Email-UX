@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-gray-200;
+  }
+  
+  body {
+    @apply bg-white text-gray-900;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Custom subtle scrollbars */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #d1d5db transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgba(209, 213, 219, 0.6);
+    border-radius: 4px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+    transition: background-color 0.2s ease;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(156, 163, 175, 0.8);
+  }
+
+  .email-content {
+    @apply text-sm leading-relaxed max-w-none;
+  }
+
+  .email-content h1 {
+    @apply text-lg font-semibold text-gray-900 mb-3 mt-4;
+  }
+
+  .email-content h2 {
+    @apply text-base font-semibold text-gray-900 mb-2 mt-4;
+  }
+
+  .email-content h3 {
+    @apply text-sm font-semibold text-gray-900 mb-2 mt-3;
+  }
+
+  .email-content p {
+    @apply text-gray-700 leading-relaxed mb-3;
+  }
+
+  .email-content ul,
+  .email-content ol {
+    @apply text-gray-700 mb-3 pl-5;
+  }
+
+  .email-content ul {
+    @apply list-disc;
+  }
+
+  .email-content ol {
+    @apply list-decimal;
+  }
+
+  .email-content li {
+    @apply mb-1;
+  }
+
+  .email-content a {
+    @apply text-primary-600 hover:text-primary-700 underline;
+  }
+
+  .email-content blockquote {
+    @apply border-l-4 border-gray-300 pl-4 italic text-gray-600 my-3;
+  }
+
+  .email-content table {
+    @apply w-full border-collapse border border-gray-300 mb-3;
+  }
+
+  .email-content th,
+  .email-content td {
+    @apply border border-gray-300 px-3 py-2 text-left;
+  }
+
+  .email-content th {
+    @apply bg-gray-50 font-semibold;
+  }
+
+  .email-content strong {
+    @apply font-semibold;
+  }
+
+  .email-content em {
+    @apply italic;
+  }
+}
